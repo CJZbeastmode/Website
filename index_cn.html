@@ -92,7 +92,18 @@
 					
 					<p>运动 (篮球, 徒步, ......)</p>
 					<p>音乐 (钢琴, 吉他, 贝斯, ......)</p>
+					<p>足球 (曼联, WSG蒂罗尔, 奥格斯堡, 奥地利, ......)</p>
 					<p>驾驶</p>
+				</div>
+
+				<div style="margin: 20px; display: flex; flex-direction: column;">
+					
+					<p style="text-align: center; color: yellow;">VPN配置</p>
+					<p>请使用Wireguard!</p>
+					<p>如需密码请联系我</p>
+					<p><span id="conf-color">获取文件</span> &nbsp;<input id="conf-pw" type="password">&nbsp;<button id="fetch-conf">获取</button></p> 
+					<p><span id="qr-color">获取二维码</span> &nbsp;<input id="qr-pw" type="password">&nbsp;<button id="fetch-qr">获取</button></p>
+					
 				</div>
 		
 		
@@ -118,5 +129,43 @@
 		color: blue;
 	}
 </style>
+
+<script>
+	var conf = document.getElementById('fetch-conf');
+	var qr = document.getElementById('fetch-qr');
+	var conf_pw = document.getElementById('conf-pw');
+	var qr_pw = document.getElementById('qr-pw');
+
+	String.prototype.hashCode = function() {
+		var hash = 0;
+		for (var i = 0; i < this.length; i++) {
+			var char = this.charCodeAt(i);
+			hash = ((hash<<5)-hash)+char;
+			hash = hash & hash;
+		}
+		return hash;
+	}
+
+	conf.addEventListener('click', () => {
+		// Password Hint: Convention + License + ?
+		if (conf_pw.value.hashCode() == 1734231013) {
+			window.open("vpn/jay_vpn.conf");
+			document.getElementById("conf-color").style.color = "green";
+		} else {
+			document.getElementById("conf-color").style.color = "red";
+		}
+	})
+
+	qr.addEventListener('click', () => {
+		// Password Hint: License + Convention + !
+		if (qr_pw.value.hashCode() == 1247168071) {
+			window.open("vpn/jay_vpn.png");
+			document.getElementById("qr-color").style.color = "green";
+		} else {
+			document.getElementById("qr-color").style.color = "red";
+		}
+	})
+</script>
+
 
 </html>
